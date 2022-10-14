@@ -18,7 +18,7 @@
       Server=0.0.0.0/0
       ListenPort={{ zbx_passive_port }}
       ServerActive={{ zbx_server }}:{{ zbx_active_port }}
-      Hostname={{ ansible_hostname }}
+      Hostname={{ ansible_fqdn }}
     owner: root
     group: root
     mode: 0644
