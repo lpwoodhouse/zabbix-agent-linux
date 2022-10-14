@@ -10,7 +10,7 @@
       - "{{ zbx_passive_port }}"
       - "{{ zbx_active_port }}"
 
-    - command: firewall-cmd --list-all
+    - command: "firewall-cmd --list-all"
       register: firewalld_status
     - debug: msg={{ firewalld_status }}
 
