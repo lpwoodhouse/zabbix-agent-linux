@@ -13,14 +13,8 @@
     - ansible_facts.services['firewalld.service']['state'] == 'running'
 
 - name: allow ports in ufw
-  ufw:
-    rule: allow
-    port: "{{ item }}"
-    proto: tcp
-    state: reloaded
-  loop:
-    - "{{ zbx_passive_port }}"
-    - "{{ zbx_active_port }}"
+  shell: |
+    'ufw allow in {{ zbx_passive_port }}/tcp'
+    'ufw allow out {{ zbx_active_port }}/tcp'
   when:
-    - "'ufw' in ansible_facts.packages"
     - ansible_facts.services['ufw.service']['state'] == 'running'
