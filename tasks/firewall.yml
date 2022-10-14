@@ -10,11 +10,12 @@
     - "{{ zbx_active_port }}"
   when:
     - "'firewalld' in ansible_facts.packages"
-    - ansible_facts.services['firewalld.service']['state'] == 'running'
+    - ansible_facts.services['firewalld']['state'] == 'running'
 
 - name: allow ports in ufw
   shell: |
     'ufw allow in {{ zbx_passive_port }}/tcp'
     'ufw allow out {{ zbx_active_port }}/tcp'
   when:
-    - ansible_facts.services['ufw.service']['state'] == 'running'
+    - "'ufw' in ansible_facts.packages"
+    - ansible_facts.services['ufw']['state'] == 'running'
