@@ -16,6 +16,6 @@
   shell: |
     'ufw allow in {{ zbx_passive_port }}/tcp'
     'ufw allow out {{ zbx_active_port }}/tcp'
-  #when:
-  #  - "'ufw' in ansible_facts.packages"
-  #  - ansible_facts.services['ufw']['state'] == 'running'
+  when:
+    - "'ufw' in ansible_facts.packages"
+    - (ansible_facts.services['ufw']['state'] in ['running', 'stopped'])
