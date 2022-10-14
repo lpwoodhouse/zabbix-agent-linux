@@ -8,9 +8,13 @@ This role installs/configures...
 
 ## Requirements
 
+Ansible modules from the collections below are utilized. Ensure there is a requirements file if they are not already available.
+
 ```yaml
+# Example /roles/requirements.yml
+---
 collections:
-  - <collection.name>
+  - <collection_name>
 ```
 
 ## Role Variables
@@ -30,7 +34,7 @@ None
 ```yaml
 - hosts: all
   roles:
-   - {{ role_name }}
+   - lpwoodhouse.role_name
 ```
 
 ## Author Information
