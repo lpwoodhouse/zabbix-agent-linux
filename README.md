@@ -4,7 +4,7 @@
 
 ## Description
 
-This role downloads, installs and configures the Zabbix Agent on RHEL, Debian, Ubuntu, SLES and ARM-based distros (Raspiban, Ubuntu-arm64)
+This role downloads, installs and configures the Zabbix Agent on RHEL, Debian, Ubuntu, SLES and ARM-based distros (Raspbian, Ubuntu-arm64)
 After installation the zabbix-agent service will be enabled and started. To view the status (or disable/stop):
 
 ```shell
