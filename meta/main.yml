@@ -1,16 +1,13 @@
 ---
 dependencies: []
-#  - role:
-#    vars:
 
 galaxy_info:
-  role_name: {{ role_name }}
   author: Lee Woodhouse
-  description: This role installs/configures...
+  description: This role downloads, installs and configures the Zabbix Agent (or Zabbix Agent 2) on RHEL, Debian, Ubuntu, SLES and ARM-based distros (Raspiban, Ubuntu-arm64)
   company: www.leewoodhouse.com
   license: MIT
   min_ansible_version: 2.10
-  platforms: # platform list available at https://galaxy.ansible.com/api/v1/platforms/?name=EL
+  platforms:
     - name: EL
       versions:
         - 7
@@ -18,6 +15,7 @@ galaxy_info:
         - 9
     - name: Debian
       versions:
+        - stretch
         - buster
         - bullseye
     - name: Ubuntu
@@ -30,13 +28,9 @@ galaxy_info:
         - 12
         - 12SP1
         - 15
-    - name: Windows
-      versions:
-        - 2012R2
-        - 2016
-        - 2019
   galaxy_tags:
     - monitoring
-    - containers
-    - docker
-    - etc...
+    - zabbix
+    - linux
+    - raspbian
+    - agent
