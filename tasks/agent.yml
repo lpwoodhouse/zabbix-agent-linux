@@ -13,12 +13,12 @@
 
 - name: copy zabbix-agent configuration
   blockinfile:
-    path: /etc/zabbix/zabbix_agentd.d/{{ansible_hostname}}.conf
+    path: /etc/zabbix/zabbix_agentd.d/{{ ansible_hostname }}.conf
     block: |
       Server=0.0.0.0/0
-      ListenPort={{zbx_passive_port}}
-      ServerActive={{zbx_server}}:{{zbx_active_port}}
-      Hostname={{ansible_hostname}}
+      ListenPort={{ zbx_passive_port }}
+      ServerActive={{ zbx_server }}:{{ zbx_active_port }}
+      Hostname={{ ansible_hostname }}
     owner: root
     group: root
     mode: 0644
