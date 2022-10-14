@@ -19,3 +19,7 @@
   when:
     - "'ufw' in ansible_facts.packages"
     - ansible_facts.services['ufw']['state'] == 'running'
+
+- shell: ufw status
+  regist: ufw_status
+- debug: msg={{ ufw_status }}
