@@ -1,4 +1,4 @@
-# **Ansible Role:** Zabbix Agent (RHEL, Debian, Ubuntu, SLES)
+# **Ansible Role:** Zabbix Agent (Linux)
 
 [![License](https://img.shields.io/badge/License-MIT-green?sytle=flat)](LICENSE)
 
