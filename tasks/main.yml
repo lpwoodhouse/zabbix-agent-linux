@@ -1,1 +1,56 @@
 ---
+- name: configure zabbix repository
+  include_tasks: zabbix_repo.yml
+
+- name: gather package facts
+  package_facts:
+    manager: auto
+
+- name: gather service facts
+  service_facts:
+
+- name: install zabbix-agent package
+  package:
+    name: zabbix-agent
+    state: present
+
+- name: copy zabbix-agent configuration
+  blockinfile:
+    path: /etc/zabbix/zabbix_agentd.d/{{ansible_hostname}}.conf
+    block: |
+      Server=0.0.0.0/0
+      ListenPort={{zbx_passive_port}}
+      ServerActive={{zbx_server}}:{{zbx_active_port}}
+      Hostname={{ansible_hostname}}
+    owner: root
+    group: root
+    mode: 0644
+    create: yes
+    backup: yes
+  notify: start zabbix agent
+
+- name: enable ports in firewalld
+  firewalld:
+    port: "{{ item }}/tcp"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  loop:
+    - "{{ zbx_passive_port }}"
+    - "{{ zbx_active_port }}"
+  when:
+    - "'firewalld' in ansible_facts.packages"
+    - ansible_facts.services['firewalld.service']['state'] == 'running'
+
+- name: allow ports in ufw
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+    state: reloaded
+  loop:
+    - "{{ zbx_passive_port }}"
+    - "{{ zbx_active_port }}"
+  when:
+    - "'ufw' in ansible_facts.packages"
+    - ansible_facts.services['ufw.service']['state'] == 'running'
