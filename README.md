@@ -1,10 +1,26 @@
-# **Ansible Role:** <role_name>
+# **Ansible Role:** Zabbix Agent (RHEL, Debian, Ubuntu, SLES)
 
 [![License](https://img.shields.io/badge/License-MIT-green?sytle=flat)](LICENSE)
 
 ## Description
 
-This role installs/configures...
+This role downloads, installs and configures the Zabbix Agent (or Zabbix Agent 2) on RHEL, Debian, Ubuntu, SLES.
+After installation the zabbix-agent service will be enabled and started. To view the status (or disable/stop):
+
+```shell
+systemctl status zabbix-agent.service
+```
+
+The role will open the assigned Zabbix agent passive port on hosts running firewalld or ufw.<br>
+To confirm firewall status after install use these commands:
+
+```shell
+#firewalld
+sudo firewall-cmd --list-all
+
+#ufw
+sudo ufw status verbose
+```
 
 ## Requirements
 
@@ -14,7 +30,8 @@ Ansible modules from the collections below are utilized. Ensure there is a requi
 # Example /roles/requirements.yml
 ---
 collections:
-  - <collection_name>
+  - community.general
+  - ansible.posix
 ```
 
 ## Role Variables
@@ -22,7 +39,10 @@ collections:
 The values for default variables are listed below (see [`defaults/main.yml`](defaults/main.yml)). Ensure they are overwritten with the values you require. See [here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable) for guidence on variable placement.
 
 ```yaml
-default_variable: value
+zbx_version: 6.2 # Used to configure the Zabbix download repository, at time of writing the latest version is 6.2
+zbx_server: 192.168.1.1 # IP Addr or FQDN of your Zabbix server
+zbx_passive_port: 10050 # Zabbix server will request agent on this port
+zbx_active_port: 10051 # Active agent will request Zabbix server on this port
 ```
 
 ## Dependencies
@@ -34,7 +54,7 @@ None
 ```yaml
 - hosts: all
   roles:
-   - lpwoodhouse.role_name
+   - lpwoodhouse.zabbix_agent_linux
 ```
 
 ## Author Information
