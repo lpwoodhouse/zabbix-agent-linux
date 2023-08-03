@@ -16,3 +16,4 @@
   command: yum makecache
   args:
     warn: false
+  ignore_errors: true
